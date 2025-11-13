@@ -28,7 +28,10 @@ export default function Contact() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-green-900">Mail us 24/7</h3>
-                <p className="text-sm text-gray-600 mt-2">phone@agrimo.com<br />jobneed@agrimo.com</p>
+                <p className="text-sm text-gray-600 mt-2">
+                  <a href="mailto:phone@agrimo.com">phone@agrimo.com</a><br />
+                  <a href="mailto:jobneed@agrimo.com">jobneed@agrimo.com</a>
+                </p>
               </div>
             </div>
           </div>
