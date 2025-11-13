@@ -44,11 +44,17 @@ export default function ServicesShowcase() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const handlePrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? services.length - 1 : prev - 1))
+    setCurrentIndex((prev) => {
+      const maxIndex = Math.max(0, services.length - 3)
+      return prev === 0 ? maxIndex : prev - 3
+    })
   }
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev === services.length - 1 ? 0 : prev + 1))
+    setCurrentIndex((prev) => {
+      const maxIndex = Math.max(0, services.length - 3)
+      return prev >= maxIndex ? 0 : prev + 3
+    })
   }
 
   return (
@@ -83,36 +89,39 @@ export default function ServicesShowcase() {
 
 
 
-        <div className="mt-8 flex justify-center">
-          <article
-            key={services[currentIndex].title}
-            className="group relative rounded-[22px] bg-white text-green-900 shadow-sm overflow-hidden pb-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-amber-200/70 animate-fade-up cursor-pointer max-w-md w-full"
-          >
-            <div className="h-60 w-full overflow-hidden">
-              <img src={services[currentIndex].img} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-2" />
-            </div>
-            <div className="p-5">
-              <span className="text-[11px] uppercase tracking-wide text-amber-600">• {services[currentIndex].tag}</span>
-              <h3 className="mt-1 text-lg font-semibold">{services[currentIndex].title}</h3>
-              <p className="mt-1 text-sm text-neutral-600">{services[currentIndex].desc}</p>
-            </div>
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+          {services.slice(currentIndex, currentIndex + 3).map((s, index) => (
+            <article
+              key={s.title}
+              className="group relative rounded-[22px] bg-white text-green-900 shadow-sm overflow-hidden pb-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-amber-200/70 animate-fade-up cursor-pointer"
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
+              <div className="h-60 w-full overflow-hidden">
+                <img src={s.img} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-2" />
+              </div>
+              <div className="p-5">
+                <span className="text-[11px] uppercase tracking-wide text-amber-600">• {s.tag}</span>
+                <h3 className="mt-1 text-lg font-semibold">{s.title}</h3>
+                <p className="mt-1 text-sm text-neutral-600">{s.desc}</p>
+              </div>
 
-            <div className="absolute bottom-3 right-4 h-9 w-9 rounded-full bg-amber-400 text-white grid place-items-center transition-all duration-500 group-hover:scale-125 group-hover:rotate-45 group-hover:bg-amber-300 z-20">
-              <FiArrowUpRight size={16} className="transition-transform duration-300" />
-            </div>
+              <div className="absolute bottom-3 right-4 h-9 w-9 rounded-full bg-amber-400 text-white grid place-items-center transition-all duration-500 group-hover:scale-125 group-hover:rotate-45 group-hover:bg-amber-300 z-20">
+                <FiArrowUpRight size={16} className="transition-transform duration-300" />
+              </div>
 
-            <div className="absolute bottom-0 left-0 right-0 h-8 bg-white z-0 pointer-events-none" />
-          </article>
+              <div className="absolute bottom-0 left-0 right-0 h-8 bg-white z-0 pointer-events-none" />
+            </article>
+          ))}
         </div>
 
         <div className="mt-6 flex justify-center items-center gap-2">
-          {services.map((_, index) => (
+          {Array.from({ length: Math.ceil(services.length / 3) }).map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`h-2 w-2 rounded-full transition-all duration-300 ${index === currentIndex ? 'bg-white w-8' : 'bg-white/30 hover:bg-white/50'
+              onClick={() => setCurrentIndex(index * 3)}
+              className={`h-2 w-2 rounded-full transition-all duration-300 ${index === Math.floor(currentIndex / 3) ? 'bg-white w-8' : 'bg-white/30 hover:bg-white/50'
                 }`}
-              aria-label={`Go to service ${index + 1}`}
+              aria-label={`Go to service group ${index + 1}`}
             />
           ))}
         </div>

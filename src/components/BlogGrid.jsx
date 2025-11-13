@@ -1,5 +1,5 @@
-import React from 'react';
-import { FiCalendar, FiUser, FiMessageSquare, FiArrowRight } from 'react-icons/fi';
+import React, { useState } from 'react';
+import { FiCalendar, FiUser, FiMessageSquare, FiArrowRight, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const posts = [
   {
@@ -104,15 +104,56 @@ const posts = [
 ];
 
 export default function BlogGrid() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const handlePrevious = () => {
+    setCurrentIndex((prev) => {
+      const maxIndex = Math.max(0, posts.length - 3)
+      return prev === 0 ? maxIndex : prev - 3
+    })
+  }
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => {
+      const maxIndex = Math.max(0, posts.length - 3)
+      return prev >= maxIndex ? 0 : prev + 3
+    })
+  }
+
   return (
     <div>
+      {/* Navigation buttons */}
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-semibold text-green-900">Latest Blog Posts</h2>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handlePrevious}
+            className="h-9 w-9 grid place-items-center rounded-lg border border-neutral-300 text-neutral-600 hover:bg-white transition-all duration-300 hover:scale-110"
+            aria-label="Previous posts"
+          >
+            <FiChevronLeft />
+          </button>
+          <button
+            onClick={handleNext}
+            className="h-9 w-9 grid place-items-center rounded-lg border border-neutral-300 text-neutral-600 hover:bg-white transition-all duration-300 hover:scale-110"
+            aria-label="Next posts"
+          >
+            <FiChevronRight />
+          </button>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post) => (
-          <article key={post.id} className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+        {posts.slice(currentIndex, currentIndex + 3).map((post, index) => (
+          <article
+            key={post.id}
+            className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 animate-fade-up"
+            style={{ animationDelay: `${index * 150}ms` }}
+          >
             <div className="relative">
-              <img 
-                src={post.image} 
-                alt={post.title} 
+              <img
+                src={post.image}
+                alt={post.title}
                 className="w-full h-56 object-cover"
               />
               <div className="absolute left-4 top-8 sm:top-10 z-10">
@@ -120,7 +161,7 @@ export default function BlogGrid() {
                   {post.category}
                 </span>
               </div>
-              
+
               <a
                 href={`/blog`}
                 className="absolute -bottom-5 right-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-amber-300 text-green-900 shadow ring-4 ring-white hover:bg-amber-200"
@@ -153,8 +194,8 @@ export default function BlogGrid() {
                 {post.excerpt}
               </p>
               <div className="flex items-center justify-between">
-                <a 
-                  href={`/blog`} 
+                <a
+                  href={`/blog`}
                   className="text-green-600 hover:text-green-800 font-medium inline-flex items-center"
                 >
                   Read More
@@ -172,26 +213,18 @@ export default function BlogGrid() {
           </article>
         ))}
       </div>
-      
-      {/* Pagination */}
-      <div className="mt-10 flex justify-center">
-        <nav className="inline-flex rounded-md shadow-sm" aria-label="Pagination">
-          <a href="#" className="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-            <span className="sr-only">Previous</span>
-            <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fillRule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clipRule="evenodd" />
-            </svg>
-          </a>
-          <a href="#" aria-current="page" className="relative z-10 inline-flex items-center px-4 py-2 border border-green-500 bg-green-50 text-sm font-medium text-green-600">1</a>
-          <a href="#" className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">2</a>
-          <a href="#" className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">3</a>
-          <a href="#" className="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-            <span className="sr-only">Next</span>
-            <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
-            </svg>
-          </a>
-        </nav>
+
+      {/* Pagination dots */}
+      <div className="mt-10 flex justify-center items-center gap-2">
+        {Array.from({ length: Math.ceil(posts.length / 3) }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index * 3)}
+            className={`h-2 w-2 rounded-full transition-all duration-300 ${index === Math.floor(currentIndex / 3) ? 'bg-green-600 w-8' : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+            aria-label={`Go to post group ${index + 1}`}
+          />
+        ))}
       </div>
     </div>
   );
