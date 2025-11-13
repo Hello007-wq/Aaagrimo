@@ -21,6 +21,24 @@ const items = [
     role: 'Co Founder',
     avatar: 'https://i.pravatar.cc/80?img=5'
   },
+  {
+    text: `The team here is fantastic! They helped me achieve my goals with ease.`,
+    name: 'Sophia Turner',
+    role: 'Manager',
+    avatar: 'https://i.pravatar.cc/80?img=12'
+  },
+  {
+    text: `Exceptional service and great results. Highly recommend!`,
+    name: 'Liam Johnson',
+    role: 'Director',
+    avatar: 'https://i.pravatar.cc/80?img=32'
+  },
+  {
+    text: `A wonderful experience from start to finish. Thank you!`,
+    name: 'Olivia Brown',
+    role: 'Consultant',
+    avatar: 'https://i.pravatar.cc/80?img=5'
+  },
 ]
 
 export default function TestimonialsPro() {

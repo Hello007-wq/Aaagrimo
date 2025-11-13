@@ -20,6 +20,24 @@ const services = [
     title: 'Soil Fertilization',
     desc: 'Farming and animal husbandry and discuss with farmers and scientists.'
   },
+  {
+    img: '/service1.png',
+    tag: 'Organic',
+    title: 'Eco-Friendly Practices',
+    desc: 'Promoting sustainable and eco-friendly farming methods.'
+  },
+  {
+    img: '/service2.png',
+    tag: 'Vegetables',
+    title: 'Fresh Produce',
+    desc: 'Delivering fresh and organic vegetables to your doorstep.'
+  },
+  {
+    img: '/service3.png',
+    tag: 'Growth',
+    title: 'Advanced Techniques',
+    desc: 'Utilizing modern techniques for better yield and quality.'
+  },
 ]
 
 export default function ServicesShowcase() {

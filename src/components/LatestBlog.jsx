@@ -5,7 +5,10 @@ const posts = [
   { tag: 'Food Crops', date: 'March 20, 2024', author: 'Admin', title: 'What technology is used in vertical farming?', img: '/blog1.jpg' },
   { tag: 'Organic Farm', date: 'March 21, 2024', author: 'Admin', title: 'Which type of farming is more prevalent today?', img: '/blog2.jpg' },
   { tag: 'Farming Tips', date: 'March 23, 2024', author: 'Admin', title: 'The Farmers Sentiment Darkens Hopes Fade', img: '/blog3.jpg' },
-]
+  { tag: 'Innovation', date: 'April 10, 2024', author: 'Editor', title: 'Innovative Solutions in Modern Agriculture', img: '/blog1.jpg' },
+  { tag: 'Sustainability', date: 'April 15, 2024', author: 'Editor', title: 'Sustainable Practices for Future Farming', img: '/blog2.jpg' },
+  { tag: 'Technology', date: 'April 20, 2024', author: 'Editor', title: 'How AI is Transforming Agriculture', img: '/blog3.jpg' },
+];
 
 export default function LatestBlog() {
   return (
