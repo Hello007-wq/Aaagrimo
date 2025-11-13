@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FiChevronLeft, FiChevronRight, FiArrowUpRight } from 'react-icons/fi'
 
 const posts = [
@@ -11,6 +11,16 @@ const posts = [
 ];
 
 export default function LatestBlog() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const handlePrevious = () => {
+    setCurrentIndex((prev) => (prev === 0 ? posts.length - 1 : prev - 1))
+  }
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === posts.length - 1 ? 0 : prev + 1))
+  }
+
   return (
     <section className="bg-[#F6F7EE] py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -23,36 +33,53 @@ export default function LatestBlog() {
             <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-green-900">Latest posts & articles</h2>
           </div>
           <div className="hidden md:flex items-center gap-2 animate-slide-in-right">
-            <button className="h-9 w-9 grid place-items-center rounded-lg border border-neutral-300 text-neutral-600 hover:bg-white transition-all duration-300 hover:scale-110">
+            <button
+              onClick={handlePrevious}
+              className="h-9 w-9 grid place-items-center rounded-lg border border-neutral-300 text-neutral-600 hover:bg-white transition-all duration-300 hover:scale-110"
+              aria-label="Previous post"
+            >
               <FiChevronLeft />
             </button>
-            <button className="h-9 w-9 grid place-items-center rounded-lg border border-neutral-300 text-neutral-600 hover:bg-white transition-all duration-300 hover:scale-110">
+            <button
+              onClick={handleNext}
+              className="h-9 w-9 grid place-items-center rounded-lg border border-neutral-300 text-neutral-600 hover:bg-white transition-all duration-300 hover:scale-110"
+              aria-label="Next post"
+            >
               <FiChevronRight />
             </button>
           </div>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {posts.map((p, index) => (
-            <article
-              key={p.title}
-              className="rounded-[18px] overflow-hidden bg-white shadow-sm group hover:shadow-xl hover:-translate-y-2 transition-all duration-500 animate-fade-up cursor-pointer"
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
-              <div className="relative h-48 w-full overflow-hidden">
-                <img src={p.img} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-white/90 text-green-900 px-3 py-1 text-[11px] font-semibold backdrop-blur-sm transition-all duration-300 group-hover:bg-amber-300 group-hover:text-white">
-                  {p.tag}
-                </div>
-                <div className="absolute bottom-3 right-3 h-9 w-9 rounded-full bg-amber-400 text-white grid place-items-center transition-all duration-500 group-hover:scale-125 group-hover:rotate-45">
-                  <FiArrowUpRight size={16} />
-                </div>
+        <div className="mt-8 flex justify-center">
+          <article
+            key={posts[currentIndex].title}
+            className="rounded-[18px] overflow-hidden bg-white shadow-sm group hover:shadow-xl hover:-translate-y-2 transition-all duration-500 animate-fade-up cursor-pointer max-w-md w-full"
+          >
+            <div className="relative h-48 w-full overflow-hidden">
+              <img src={posts[currentIndex].img} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div className="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-white/90 text-green-900 px-3 py-1 text-[11px] font-semibold backdrop-blur-sm transition-all duration-300 group-hover:bg-amber-300 group-hover:text-white">
+                {posts[currentIndex].tag}
               </div>
-              <div className="p-5 text-green-900">
-                <div className="mt-2 text-neutral-500 text-xs">{p.date} • {p.author}</div>
-                <h3 className="mt-2 font-semibold transition-colors duration-300 group-hover:text-amber-600">{p.title}</h3>
+              <div className="absolute bottom-3 right-3 h-9 w-9 rounded-full bg-amber-400 text-white grid place-items-center transition-all duration-500 group-hover:scale-125 group-hover:rotate-45">
+                <FiArrowUpRight size={16} />
               </div>
-            </article>
+            </div>
+            <div className="p-5 text-green-900">
+              <div className="mt-2 text-neutral-500 text-xs">{posts[currentIndex].date} • {posts[currentIndex].author}</div>
+              <h3 className="mt-2 font-semibold transition-colors duration-300 group-hover:text-amber-600">{posts[currentIndex].title}</h3>
+            </div>
+          </article>
+        </div>
+
+        <div className="mt-6 flex justify-center items-center gap-2">
+          {posts.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 w-2 rounded-full transition-all duration-300 ${index === currentIndex ? 'bg-green-900 w-8' : 'bg-green-900/30 hover:bg-green-900/50'
+                }`}
+              aria-label={`Go to post ${index + 1}`}
+            />
           ))}
         </div>
       </div>
