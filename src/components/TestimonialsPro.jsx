@@ -1,6 +1,6 @@
-import React from 'react'
-import { FiStar, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
-import { FaQuoteRight } from 'react-icons/fa'
+import React, { useState } from 'react';
+import { FiStar, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FaQuoteRight } from 'react-icons/fa';
 
 const items = [
   {
@@ -39,9 +39,19 @@ const items = [
     role: 'Consultant',
     avatar: 'https://i.pravatar.cc/80?img=5'
   },
-]
+];
 
 export default function TestimonialsPro() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + items.length) % items.length);
+  };
+
   return (
     <section className="bg-[#F6F7EE] py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -54,17 +64,23 @@ export default function TestimonialsPro() {
             <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-green-900">What our customers say</h2>
           </div>
           <div className="hidden md:flex items-center gap-2 animate-slide-in-right">
-            <button className="h-9 w-9 grid place-items-center rounded-lg border border-neutral-300 text-neutral-600 hover:bg-white transition-all duration-300 hover:scale-110">
+            <button
+              onClick={handlePrev}
+              className="h-9 w-9 grid place-items-center rounded-lg border border-neutral-300 text-neutral-600 hover:bg-white transition-all duration-300 hover:scale-110"
+            >
               <FiChevronLeft />
             </button>
-            <button className="h-9 w-9 grid place-items-center rounded-lg border border-neutral-300 text-neutral-600 hover:bg-white transition-all duration-300 hover:scale-110">
+            <button
+              onClick={handleNext}
+              className="h-9 w-9 grid place-items-center rounded-lg border border-neutral-300 text-neutral-600 hover:bg-white transition-all duration-300 hover:scale-110"
+            >
               <FiChevronRight />
             </button>
           </div>
         </div>
 
         <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {items.map((t, index) => (
+          {items.slice(currentIndex, currentIndex + 3).map((t, index) => (
             <article
               key={t.name}
               className="relative rounded-2xl bg-white p-6 shadow-sm group hover:shadow-xl hover:-translate-y-1 transition-all duration-500 animate-fade-up cursor-pointer"
@@ -89,5 +105,5 @@ export default function TestimonialsPro() {
         </div>
       </div>
     </section>
-  )
+  );
 }
