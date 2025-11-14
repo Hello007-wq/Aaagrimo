@@ -6,24 +6,27 @@ export default function Footer() {
     <footer className="mt-16 bg-white">
       {/* category + contact strip */}
       <div className="bg-amber-200">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-5 text-green-900 text-sm font-semibold">
-            <span>FARMERS</span>
-            <span>•</span>
-            <span>ORGANIC</span>
-            <span>•</span>
-            <span>FOODS</span>
-            <span>•</span>
-            <span>PRODUCT</span>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-3">
+          {/* FARMERS ORGANIC FOODS PRODUCT section */}
+          <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 md:gap-5 text-green-900 text-xs sm:text-sm font-semibold mb-4 md:mb-0">
+            <span className="flex-shrink-0">FARMERS</span>
+            <span className="hidden sm:inline flex-shrink-0">•</span>
+            <span className="flex-shrink-0">ORGANIC</span>
+            <span className="hidden sm:inline flex-shrink-0">•</span>
+            <span className="flex-shrink-0">FOODS</span>
+            <span className="hidden sm:inline flex-shrink-0">•</span>
+            <span className="flex-shrink-0">PRODUCT</span>
           </div>
-          <div className="flex items-center gap-6 text-green-900">
+
+          {/* Contact details */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-green-900">
             <div className="flex items-center gap-2">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white"><FiPhone /></span>
-              <span className="text-sm font-semibold">+1 (212) 255-511</span>
+              <span className="inline-flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white flex-shrink-0"><FiPhone /></span>
+              <span className="text-xs sm:text-sm font-semibold truncate">+1 (212) 255-511</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white"><FiMail /></span>
-              <span className="text-sm font-semibold">noreply@pbminfotech.com</span>
+              <span className="inline-flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white flex-shrink-0"><FiMail /></span>
+              <span className="text-xs sm:text-sm font-semibold truncate max-w-[200px] sm:max-w-none">noreply@pbminfotech.com</span>
             </div>
           </div>
         </div>
@@ -43,7 +46,7 @@ export default function Footer() {
               <a href="#" className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-300 text-green-900 hover:bg-amber-300 hover:border-amber-300 hover:text-white transition-all duration-300 hover:scale-110 hover:-rotate-6"><FiInstagram /></a>
             </div>
           </div>
-          
+
           <div className="md:col-span-8">
             <h3 className="text-green-900 text-2xl md:text-[28px] font-semibold max-w-2xl">Professional & modern, a theme designed to help your business stand out from the rest.</h3>
             <div className="mt-8 grid md:grid-cols-3 gap-8 text-sm">
@@ -75,7 +78,7 @@ export default function Footer() {
         </div>
       </div>
 
-    
+
       <div className="border-t border-neutral-200">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 text-xs text-neutral-600 flex flex-col md:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-6">
